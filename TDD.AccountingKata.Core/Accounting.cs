@@ -18,14 +18,14 @@ namespace TDD.AccountingKata.Core
         {
             var budgetList = budgetRepo.GetAll();
 
-            if (!IsValidateDateRange(start, end)) return 0;
+            if (!IsValidateDateRange(start, end)) return 0d;
             if (IsSameMonth(start, end))
             {
                 var targetBudgets = GetBudget(start, budgetList);
 
                 if (targetBudgets == null)
                 {
-                    return 0;
+                    return 0d;
                 }
 
                 var unitOfDay = targetBudgets.Amount / GetDayInTargetMonth(start);
@@ -34,7 +34,7 @@ namespace TDD.AccountingKata.Core
                 return CalculateAmount(unitOfDay, daysOfTargetMonth);
             }
 
-            var totalAmount = 0;
+            var totalAmount = 0d;
 
             totalAmount += GeFirstAndLastTotalAmounts(start, end, budgetList);
 
@@ -44,9 +44,9 @@ namespace TDD.AccountingKata.Core
 
         }
 
-        private int GeFirstAndLastTotalAmounts(DateTime start, DateTime end, IEnumerable<Budget> budgetList)
+        private double GeFirstAndLastTotalAmounts(DateTime start, DateTime end, IEnumerable<Budget> budgetList)
         {
-            var totalAmount = 0;
+            var totalAmount = 0d;
             var filterYearMonths = new List<DateTime>() {start, end};
 
             foreach (var targetDateTime in filterYearMonths)
@@ -55,8 +55,8 @@ namespace TDD.AccountingKata.Core
                 if (targetMonthBudget != null)
                 {
                     var monthOfDays = GetDayInTargetMonth(targetDateTime);
-                    var unitOfDay = targetMonthBudget.Amount / monthOfDays;
-                    var targetAmount = 0;
+                    var unitOfDay = Convert.ToDouble(targetMonthBudget.Amount / monthOfDays);
+                    var targetAmount = 0d;
                     targetAmount = GetTargetAmount(start, end, targetDateTime, targetAmount, unitOfDay,
                         monthOfDays);
                     totalAmount += targetAmount;
@@ -67,10 +67,10 @@ namespace TDD.AccountingKata.Core
         }
         
 
-        private int GetMiddleTotalAmounts(DateTime start, DateTime end, IEnumerable<Budget> budgetList)
+        private double GetMiddleTotalAmounts(DateTime start, DateTime end, IEnumerable<Budget> budgetList)
         {
             var monthsInTargetRange = GetMonthsInTargetRange(start, end);
-            var totalAmount = 0;
+            var totalAmount = 0d;
             if (monthsInTargetRange > 1)
             {
                 for (int i = 1; i < monthsInTargetRange; i++)
@@ -92,15 +92,15 @@ namespace TDD.AccountingKata.Core
             return budgetList.FirstOrDefault(x => x.YearMonth == targetDateTime.ToString("yyyyMM"));
         }
 
-        private int GetMonthsInTargetRange(DateTime start, DateTime end)
+        private double GetMonthsInTargetRange(DateTime start, DateTime end)
         {
             var diffMonths = 12 * (end.Year - start.Year) + (end.Month - start.Month);
             return diffMonths;
 
         }
 
-        private int GetTargetAmount(DateTime start, DateTime end, DateTime targetDateTime, int targetAmount,
-            int unitOfDay, int monthOfDays)
+        private double GetTargetAmount(DateTime start, DateTime end, DateTime targetDateTime, double targetAmount,
+            double unitOfDay, int monthOfDays)
         {
             if (targetDateTime == start)
             {
@@ -120,7 +120,7 @@ namespace TDD.AccountingKata.Core
             return start.ToString("yyyyMM") == end.ToString("yyyyMM");
         }
 
-        private int CalculateAmount(int unitOfDay, int daysOfTargetMonth)
+        private double CalculateAmount(double unitOfDay, double daysOfTargetMonth)
         {
             return unitOfDay*daysOfTargetMonth;
         }

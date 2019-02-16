@@ -4,6 +4,6 @@ namespace TDD.AccountingKata.Core
     {
         public string YearMonth { get; set; }
 
-        public int Amount { get; set; }
+        public double Amount { get; set; }
     }
 }
