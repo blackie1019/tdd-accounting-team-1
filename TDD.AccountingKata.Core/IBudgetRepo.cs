@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TDD.AccountingKata.Core;
 
 namespace Tdd.AccountingPractice
 {

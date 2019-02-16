@@ -1,4 +1,4 @@
-namespace Tdd.AccountingPractice
+namespace TDD.AccountingKata.Core
 {
     public class Budget
     {

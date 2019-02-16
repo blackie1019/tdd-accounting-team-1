@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tdd.AccountingPractice;
 
-namespace Tdd.AccountingPractice
+namespace TDD.AccountingKata.Core
 {
     public class Accounting
     {

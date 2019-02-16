@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdd.AccountingPractice", "Tdd.AccountingPractice\Tdd.AccountingPractice.csproj", "{83A572EB-CAB1-4EC3-9F5F-CB2F09BED78A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.AccountingKata.Core", "TDD.AccountingKata.Core\TDD.AccountingKata.Core.csproj", "{83A572EB-CAB1-4EC3-9F5F-CB2F09BED78A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{695AE0E5-A004-4E75-8012-548BA13FE16E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.AccountsKata.Test", "TDD.AccountsKata.Test\TDD.AccountsKata.Test.csproj", "{695AE0E5-A004-4E75-8012-548BA13FE16E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

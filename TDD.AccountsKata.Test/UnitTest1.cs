@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Tdd.AccountingPractice;
+using TDD.AccountingKata.Core;
 
-namespace Tests
+namespace TDD.AccountsKata.Test
 {
     [TestFixture]
     public class Tests
