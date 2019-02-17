@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using TDD.AccountingKata.Core;
 
-namespace Tdd.AccountingPractice
+namespace TDD.AccountingKata.Core
 {
     public interface IBudgetRepo
     {
-        IEnumerable<Budget> GetAll();
+        IList<Budget> GetAll();
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Tdd.AccountingPractice;
 using TDD.AccountingKata.Core;
 
 namespace TDD.AccountsKata.Test
@@ -164,7 +163,7 @@ namespace TDD.AccountsKata.Test
         {
             _data = initData;
         }
-        public IEnumerable<Budget> GetAll()
+        public IList<Budget> GetAll()
         {
             return _data;
         }
