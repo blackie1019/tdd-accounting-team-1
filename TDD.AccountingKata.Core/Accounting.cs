@@ -18,7 +18,7 @@ namespace TDD.AccountingKata.Core
             if (IsInValidDateRange(start, end)) return 0d;
             var budgetList = _budgetRepo.GetAll();
             return IsSingleMonth(start, end)
-                ? GetMonthTotalAmount(start, end, budgetList, null)
+                ? GetMonthTotalAmount(start, end, budgetList)
                 : GetFirstAndLastTotalAmounts(start, end, budgetList) + GetMiddleTotalAmounts(start, end, budgetList);
         }
 
@@ -50,7 +50,7 @@ namespace TDD.AccountingKata.Core
         }
 
         private double GetMonthTotalAmount(DateTime start, DateTime end, IList<Budget> budgetList,
-            DateTime? targetDateTime)
+            DateTime? targetDateTime=null)
         {
             var ratioOfMonth = ConvertToRatioOfMonth(start, end, targetDateTime);
             return CalculateMonthTotalAmount(budgetList, ratioOfMonth, targetDateTime ?? start);
