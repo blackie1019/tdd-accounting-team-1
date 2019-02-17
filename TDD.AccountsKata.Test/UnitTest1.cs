@@ -20,13 +20,11 @@ namespace TDD.AccountsKata.Test
             {
                 new Budget {Amount = 310, YearMonth = "201901"},
             });
-            
-            var starDate = new DateTime(2019, 01, 05);
-            var endDate = new DateTime(2019, 01, 04);
 
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(0, totalAmount);
+            AmountShouldBe(0, 
+                GetTotalAmountReturnFromInstance(accountingInstance,
+                new DateTime(2019, 01, 05),
+                new DateTime(2019, 01, 04)));
         }
 
         [Test]
@@ -36,15 +34,13 @@ namespace TDD.AccountsKata.Test
             {
                 new Budget {Amount = 0, YearMonth = "201904"}
             });
-            
-            var starDate = new DateTime(2019, 04, 01);
-            var endDate = new DateTime(2019, 04, 02);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(0, totalAmount);
+
+            AmountShouldBe(0,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2019, 04, 01),
+                    new DateTime(2019, 04, 02)));
         }
-        
+
         [Test]
         public void QueryOneDateBudget()
         {
@@ -52,15 +48,13 @@ namespace TDD.AccountsKata.Test
             {
                 new Budget {Amount = 310, YearMonth = "201901"}
             });
-            
-            var starDate = new DateTime(2019, 01, 01);
-            var endDate = new DateTime(2019, 01, 01);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(10, totalAmount);
+
+            AmountShouldBe(10,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2019, 01, 01),
+                    new DateTime(2019, 01, 01)));
         }
-        
+
         [Test]
         public void QueryOneMonthBudget()
         {
@@ -68,15 +62,13 @@ namespace TDD.AccountsKata.Test
             {
                 new Budget {Amount = 310, YearMonth = "201901"}
             });
-            
-            var starDate = new DateTime(2019, 01, 01);
-            var endDate = new DateTime(2019, 01, 31);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(310, totalAmount);
+
+            AmountShouldBe(310,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2019, 01, 01),
+                    new DateTime(2019, 01, 31)));
         }
-        
+
         [Test]
         public void QueryTwoMonthBudget()
         {
@@ -85,14 +77,13 @@ namespace TDD.AccountsKata.Test
                 new Budget {Amount = 280, YearMonth = "201902"},
                 new Budget {Amount = 310, YearMonth = "201903"},
             });
-            
-            var starDate = new DateTime(2019, 02, 28);
-            var endDate = new DateTime(2019, 03, 01);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(20, totalAmount);
+
+            AmountShouldBe(20,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2019, 02, 28),
+                    new DateTime(2019, 03, 01)));
         }
+
         [Test]
         public void QueryTwoMonthBudgetWithNoData()
         {
@@ -101,13 +92,11 @@ namespace TDD.AccountsKata.Test
                 new Budget {Amount = 310, YearMonth = "201903"},
                 new Budget {Amount = 0, YearMonth = "201904"}
             });
-            
-            var starDate = new DateTime(2019, 03, 30);
-            var endDate = new DateTime(2019, 04, 04);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(20, totalAmount);
+
+            AmountShouldBe(20,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2019, 03, 30),
+                    new DateTime(2019, 04, 04)));
         }
 
         [Test]
@@ -117,13 +106,11 @@ namespace TDD.AccountsKata.Test
             {
                 new Budget {Amount = 290, YearMonth = "202002"}
             });
-            
-            var starDate = new DateTime(2020, 02, 01);
-            var endDate = new DateTime(2020, 02, 28);
 
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-
-            AmountShouldBe(280, totalAmount);
+            AmountShouldBe(280,
+                GetTotalAmountReturnFromInstance(accountingInstance, 
+                    new DateTime(2020, 02, 01),
+                    new DateTime(2020, 02, 28)));
         }
 
         [Test]
@@ -135,14 +122,14 @@ namespace TDD.AccountsKata.Test
                 new Budget {Amount = 280, YearMonth = "201902"},
                 new Budget {Amount = 310, YearMonth = "201903"},
             });
-            
-            var starDate = new DateTime(2019, 01, 25);
-            var endDate = new DateTime(2019, 03, 05);
-            
-            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
-            
-            AmountShouldBe(400, totalAmount);
+
+            AmountShouldBe(400, 
+                GetTotalAmountReturnFromInstance(accountingInstance,
+                new DateTime(2019, 01, 25),
+                new DateTime(2019, 03, 05)));
         }
+
+        #region Private
 
         private void AmountShouldBe(double expected, double totalAmount)
         {
@@ -153,6 +140,14 @@ namespace TDD.AccountsKata.Test
         {
             return new Accounting(new FakeBudgetRepo(data));
         }
+        
+        private double GetTotalAmountReturnFromInstance(Accounting accountingInstance, DateTime starDate, DateTime endDate)
+        {
+            var totalAmount = accountingInstance.TotalAmount(starDate, endDate);
+            return totalAmount;
+        }
+
+        #endregion
     }
     
     public class FakeBudgetRepo : IBudgetRepo
