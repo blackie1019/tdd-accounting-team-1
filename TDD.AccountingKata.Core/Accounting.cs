@@ -17,22 +17,10 @@ namespace TDD.AccountingKata.Core
         {
             var totalAmount = 0d;
             if (IsInValidDateRange(start, end)) return totalAmount;
-            
-            if (IsSingleMonth(start, end))
-            {
-                var budgetList = _budgetRepo.GetAll();
-                
-                return GetMonthTotalAmount(start, end, budgetList, null);
-            }
-            else
-            {
-                var budgetList = _budgetRepo.GetAll();
-                
-                totalAmount += GetFirstAndLastTotalAmounts(start, end, budgetList);
-                totalAmount += GetMiddleTotalAmounts(start, end, budgetList);
-                
-                return totalAmount;
-            }
+            var budgetList = _budgetRepo.GetAll();
+            return IsSingleMonth(start, end)
+                ? GetMonthTotalAmount(start, end, budgetList, null)
+                : GetFirstAndLastTotalAmounts(start, end, budgetList) + GetMiddleTotalAmounts(start, end, budgetList);
         }
 
         private double GetMiddleTotalAmounts(DateTime start, DateTime end, IList<Budget> budgetList)
