@@ -15,8 +15,7 @@ namespace TDD.AccountingKata.Core
         
         public double TotalAmount(DateTime start, DateTime end)
         {
-            var totalAmount = 0d;
-            if (IsInValidDateRange(start, end)) return totalAmount;
+            if (IsInValidDateRange(start, end)) return 0d;
             var budgetList = _budgetRepo.GetAll();
             return IsSingleMonth(start, end)
                 ? GetMonthTotalAmount(start, end, budgetList, null)
